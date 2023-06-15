@@ -1,6 +1,12 @@
 import {useMemo, useState} from 'react';
 import Slider from '@react-native-community/slider';
-import {View, FlatList, TouchableOpacity, Image, useWindowDimensions} from 'react-native';
+import {
+  View,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  useWindowDimensions,
+} from 'react-native';
 import {COLORS} from '../styles/styles';
 import {useQuery} from '../schemas/Album';
 import {useNavigation} from '@react-navigation/native';
@@ -40,10 +46,11 @@ function HomeScreen({arraySelected, width}) {
         ]),
     );
   }
-  
+
   return (
     <View style={{flex: 1, backgroundColor: COLORS.black}}>
       <SearchBar
+        albums={albums}
         changeQuery={letter => {
           setSearchBarQuery(letter);
         }}
@@ -104,19 +111,21 @@ function HomeScreen({arraySelected, width}) {
         />
       )}
 
-      {arraySelected === true ? <Slider
-        style={{width: widthScreen, height: 35}}
-        value={numColumns}
-        onValueChange={setNumColumns}
-        minimumValue={2}
-        maximumValue={10}
-        step={1}
-        minimumTrackTintColor={COLORS.red}
-        maximumTrackTintColor={COLORS.white}
-        thumbTintColor={COLORS.red}
-      />: null }
+      {arraySelected === true ? (
+        <Slider
+          style={{width: widthScreen, height: 35}}
+          value={numColumns}
+          onValueChange={setNumColumns}
+          minimumValue={2}
+          maximumValue={10}
+          step={1}
+          minimumTrackTintColor={COLORS.red}
+          maximumTrackTintColor={COLORS.white}
+          thumbTintColor={COLORS.red}
+        />
+      ) : null}
 
-      <AlbumCounter albums={albums} shownAlbums={albums.length} totalAlbums={result.length} />
+      <AlbumCounter shownAlbums={albums.length} totalAlbums={result.length} />
 
       <DeleteConfirmationModal
         modalOpen={modalOpen}
