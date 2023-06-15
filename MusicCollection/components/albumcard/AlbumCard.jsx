@@ -12,25 +12,25 @@ const AlbumCard = ({
 }) => {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.coverContainer}
-        onPress={() =>
-          navigation.navigate('Album', {
-            title: title,
-            artist: artist,
-            cover: cover,
-            lang: '',
-          })
-        }
-        onLongPress={() =>
-          navigation.navigate('Album', {
-            title: title,
-            artist: artist,
-            cover: cover,
-            lang: "es",
-          })
-        }>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() =>
+        navigation.navigate('Album', {
+          title: title,
+          artist: artist,
+          cover: cover,
+          lang: '',
+        })
+      }
+      onLongPress={() =>
+        navigation.navigate('Album', {
+          title: title,
+          artist: artist,
+          cover: cover,
+          lang: 'es',
+        })
+      }>
+      <View style={styles.coverContainer}>
         <Image
           source={{
             uri: cover,
@@ -38,7 +38,7 @@ const AlbumCard = ({
           resizeMode="cover"
           style={styles.coverImage}
         />
-      </TouchableOpacity>
+      </View>
 
       <View style={styles.textContainer}>
         <Text style={styles.albumName} numberOfLines={1}>
@@ -61,7 +61,7 @@ const AlbumCard = ({
           style={styles.xImage}
         />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 };
 
