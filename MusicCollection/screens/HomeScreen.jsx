@@ -68,15 +68,6 @@ function HomeScreen({arraySelected, width}) {
                   title: item.title,
                   artist: item.artist,
                   cover: item.cover,
-                  lang: '',
-                })
-              }
-              onLongPress={() =>
-                navigation.navigate('Album', {
-                  title: item.title,
-                  artist: item.artist,
-                  cover: item.cover,
-                  lang: 'es',
                 })
               }>
               <Image

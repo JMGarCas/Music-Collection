@@ -4,6 +4,8 @@ import {COLORS, FONTS, SIZES} from '../../styles/styles';
 const styles = StyleSheet.create({
   Wrapper: {
     paddingVertical: '2%',
+    borderBottomWidth: 2,
+    borderBottomColor: COLORS.grey,
     backgroundColor: COLORS.grey,
   },
   Number: {

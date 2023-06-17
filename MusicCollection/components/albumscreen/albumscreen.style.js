@@ -4,7 +4,7 @@ import {COLORS, SIZES, FONTS} from '../../styles/styles';
 const styles = StyleSheet.create({
   mainView: {
     backgroundColor: COLORS.black,
-    flex:1
+    flex: 1,
   },
   coverContainer: {
     marginTop: 32,
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.xLarge,
     fontFamily: FONTS.bold,
     color: COLORS.red,
-    marginHorizontal: 32
+    marginHorizontal: 32,
   },
   albumArtist: {
     textAlign: 'center',
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.large,
     fontFamily: FONTS.regular,
     color: COLORS.white,
-    marginHorizontal: 32
+    marginHorizontal: 32,
   },
   btnContainer: {
     flexDirection: 'row',
@@ -68,14 +68,38 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
   },
   noAvailableContent: {
-    marginVertical: 64
+    marginVertical: 64,
   },
   noAvailableContentText: {
     textAlign: 'center',
     fontSize: SIZES.large,
     fontFamily: FONTS.bold,
     color: COLORS.red,
-  }
+  },
+  languageTextContainerSelected: {
+    paddingVertical: '2%',
+    flex: 1,
+    backgroundColor: COLORS.grey,
+    borderBottomColor: COLORS.red,
+    borderBottomWidth: 2,
+  },
+  languageTextContainerNotSelected: {
+    paddingVertical: '2%',
+    flex: 1,
+    backgroundColor: COLORS.grey,
+  },
+  languageTextSelected: {
+    fontSize: SIZES.large,
+    fontFamily: FONTS.bold,
+    color: COLORS.red,
+    textAlign: 'center',
+  },
+  languageTextNotSelected: {
+    fontSize: SIZES.large,
+    fontFamily: FONTS.bold,
+    color: COLORS.white,
+    textAlign: 'center',
+  },
 });
 
 export default styles;

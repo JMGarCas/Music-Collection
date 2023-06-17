@@ -20,7 +20,7 @@ const ModalButtonHomeScreen = () => {
   const [albumName, setAlbumName] = useState('');
   const [cover, setCover] = useState('');
   const realm = useRealm();
-  
+
   useEffect(() => {
     if (dataAlbum.length != 0) {
       realm.write(() => {
@@ -35,7 +35,9 @@ const ModalButtonHomeScreen = () => {
 
   const fetchAlbumData = async () => {
     const response = await axios.get(
-      `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${LASTFM_API_KEY}&artist=${encodeURIComponent(artistName)}&album=${encodeURIComponent(albumName)}&format=json`,
+      `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${LASTFM_API_KEY}&artist=${encodeURIComponent(
+        artistName,
+      )}&album=${encodeURIComponent(albumName)}&format=json`,
     );
 
     setDataAlbum(response.data.album);
@@ -93,73 +95,75 @@ const ModalButtonHomeScreen = () => {
       </TouchableOpacity>
 
       <Modal visible={modalOpen} transparent={true} animationType="fade">
-        <View style={styles.modal}>
-          <View style={styles.searchContainer}>
-            <View style={styles.iconContainer}>
-              <Image
-                source={require('../../styles/user.png')}
-                style={styles.iconImage}
-              />
+        <View style={styles.modalBackground}>
+          <View style={styles.modal} onPress>
+            <View style={styles.searchContainer}>
+              <View style={styles.iconContainer}>
+                <Image
+                  source={require('../../styles/user.png')}
+                  style={styles.iconImage}
+                />
+              </View>
+              <View style={styles.searchBar}>
+                <TextInput
+                  style={styles.searchBarText}
+                  placeholder="Artist"
+                  placeholderTextColor={COLORS.red}
+                  cursorColor={COLORS.red}
+                  onChangeText={text => setArtistName(text)}
+                />
+              </View>
             </View>
-            <View style={styles.searchBar}>
-              <TextInput
-                style={styles.searchBarText}
-                placeholder="Artist"
-                placeholderTextColor={COLORS.red}
-                cursorColor={COLORS.red}
-                onChangeText={text => setArtistName(text)}
-              />
-            </View>
-          </View>
 
-          <View style={styles.searchContainer}>
-            <View style={styles.iconContainer}>
-              <Image
-                source={require('../../styles/vinyl.png')}
-                style={styles.iconImage}
-              />
+            <View style={styles.searchContainer}>
+              <View style={styles.iconContainer}>
+                <Image
+                  source={require('../../styles/vinyl.png')}
+                  style={styles.iconImage}
+                />
+              </View>
+              <View style={styles.searchBar}>
+                <TextInput
+                  style={styles.searchBarText}
+                  placeholder="Album"
+                  placeholderTextColor={COLORS.red}
+                  cursorColor={COLORS.red}
+                  onChangeText={text => setAlbumName(text)}
+                />
+              </View>
             </View>
-            <View style={styles.searchBar}>
-              <TextInput
-                style={styles.searchBarText}
-                placeholder="Album"
-                placeholderTextColor={COLORS.red}
-                cursorColor={COLORS.red}
-                onChangeText={text => setAlbumName(text)}
-              />
-            </View>
-          </View>
 
-          <View style={styles.searchContainer}>
-            <View style={styles.iconContainer}>
-              <Image
-                source={require('../../styles/cover.png')}
-                style={styles.iconImage}
-              />
+            <View style={styles.searchContainer}>
+              <View style={styles.iconContainer}>
+                <Image
+                  source={require('../../styles/cover.png')}
+                  style={styles.iconImage}
+                />
+              </View>
+              <View style={styles.searchBar}>
+                <TextInput
+                  style={styles.searchBarText}
+                  placeholder="Cover (Custom Album)"
+                  placeholderTextColor={COLORS.red}
+                  cursorColor={COLORS.red}
+                  onChangeText={text => setCover(text)}
+                />
+              </View>
             </View>
-            <View style={styles.searchBar}>
-              <TextInput
-                style={styles.searchBarText}
-                placeholder="Cover (Custom Album)"
-                placeholderTextColor={COLORS.red}
-                cursorColor={COLORS.red}
-                onChangeText={text => setCover(text)}
-              />
-            </View>
-          </View>
 
-          <View
-            style={{
-              flexDirection: 'row',
-            }}>
-            <TouchableOpacity
-              style={styles.actionBtn}
-              onPress={() => {
-                setModalOpen(false);
+            <View
+              style={{
+                flexDirection: 'row',
               }}>
-              <Text style={styles.actionBtnText}>Close</Text>
-            </TouchableOpacity>
-            {cover == '' ? coverNotPresent() : coverPresent()}
+              <TouchableOpacity
+                style={styles.actionBtn}
+                onPress={() => {
+                  setModalOpen(false);
+                }}>
+                <Text style={styles.actionBtnText}>Close</Text>
+              </TouchableOpacity>
+              {cover == '' ? coverNotPresent() : coverPresent()}
+            </View>
           </View>
         </View>
       </Modal>

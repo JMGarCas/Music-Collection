@@ -22,6 +22,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: COLORS.red,
   },
+  modalBackground: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, .70)",
+  },
   searchContainer: {
     alignItems: "center",
     flexDirection: "row",

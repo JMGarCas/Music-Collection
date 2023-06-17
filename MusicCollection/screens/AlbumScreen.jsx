@@ -1,5 +1,5 @@
 import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import styles from '../components/albumscreen/albumscreen.style';
 import axios from 'axios';
 import TrackCard from '../components/trackcard/TrackCard';
@@ -10,9 +10,10 @@ function AlbumScreen({route}) {
   const [buttonSelected, setButtonSelected] = useState('wiki');
   const [dataAlbum, setDataAlbum] = useState('');
   const [dataArtist, setDataArtist] = useState('');
+  const [language, setLanguage] = useState('');
 
   const fetchAlbumData = async () => {
-    if (route.params.lang == 'es') {
+    if (language == 'es') {
       await axios
         .get(
           `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${LASTFM_API_KEY}&artist=${encodeURIComponent(
@@ -34,7 +35,7 @@ function AlbumScreen({route}) {
   };
 
   const fetchArtistData = async () => {
-    if (route.params.lang == 'es') {
+    if (language == 'es') {
       await axios
         .get(
           `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${encodeURIComponent(
@@ -53,6 +54,11 @@ function AlbumScreen({route}) {
     }
   };
 
+  useEffect(() => {
+    fetchAlbumData();
+    fetchArtistData();
+  }, [language]);
+  
   const wikiSelected = () => {
     if (dataAlbum == '') {
       fetchAlbumData();
@@ -121,7 +127,6 @@ function AlbumScreen({route}) {
     if (dataArtist == '') {
       fetchArtistData();
     }
-    console.log(dataArtist);
     if (
       typeof dataArtist.data === 'undefined' ||
       typeof dataArtist.data.artist === 'undefined'
@@ -255,13 +260,21 @@ function AlbumScreen({route}) {
   };
 
   const NoAvailableContent = () => {
-    return (
-      <View style={styles.noAvailableContent}>
-        <Text style={styles.noAvailableContentText}>
-          [ NO AVAILABLE CONTENT ]
-        </Text>
-      </View>
-    );
+    if (language == '') {
+      return (
+        <View style={styles.noAvailableContent}>
+          <Text style={styles.noAvailableContentText}>
+            [ NO AVAILABLE CONTENT ]
+          </Text>
+        </View>
+    )} else {
+      return (
+        <View style={styles.noAvailableContent}>
+          <Text style={styles.noAvailableContentText}>
+            [ CONTENIDO NO DISPONIBLE ]
+          </Text>
+        </View>
+    )};
   };
 
   return (
@@ -285,6 +298,45 @@ function AlbumScreen({route}) {
           ? artistSelected()
           : tracksSelected()}
       </ScrollView>
+      <View style={{flexDirection: 'row'}}>
+        {language == '' ? (
+          <>
+            <TouchableOpacity style={styles.languageTextContainerSelected}>
+              <Text
+                style={styles.languageTextSelected}
+                onPress={() => setLanguage('')}>
+                ENG
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.languageTextContainerNotSelected}>
+              <Text
+                style={styles.languageTextNotSelected}
+                onPress={() => setLanguage('es')}>
+                ESP
+              </Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            <TouchableOpacity style={styles.languageTextContainerNotSelected}>
+              <Text
+                style={styles.languageTextNotSelected}
+                onPress={() => setLanguage('')}>
+                ENG
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.languageTextContainerSelected}>
+              <Text
+                style={styles.languageTextSelected}
+                onPress={() => setLanguage('es')}>
+                ESP
+              </Text>
+            </TouchableOpacity>
+          </>
+        )}
+      </View>
     </View>
   );
 }

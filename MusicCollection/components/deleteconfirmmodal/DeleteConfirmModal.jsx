@@ -18,27 +18,29 @@ const DeleteConfirmationModal = ({
 
   return (
     <Modal visible={modalOpen} transparent={true} animationType="fade">
-      <View style={styles.modal}>
-        <Text style={styles.confirmText}>Are You Sure?</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-          }}>
-          <TouchableOpacity
-            style={styles.actionBtn}
-            onPress={() => {
-              changeModalClose();
+      <View style={styles.modalBackground}>
+        <View style={styles.modal}>
+          <Text style={styles.confirmText}>Are You Sure?</Text>
+          <View
+            style={{
+              flexDirection: 'row',
             }}>
-            <Text style={styles.actionBtnText}>No</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.actionBtn}
-            onPress={() => {
-              deleteAlbum(albumToDelete);
-              changeModalClose();
-            }}>
-            <Text style={styles.actionBtnText}>Yes</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.actionBtn}
+              onPress={() => {
+                changeModalClose();
+              }}>
+              <Text style={styles.actionBtnText}>No</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.actionBtn}
+              onPress={() => {
+                deleteAlbum(albumToDelete);
+                changeModalClose();
+              }}>
+              <Text style={styles.actionBtnText}>Yes</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>

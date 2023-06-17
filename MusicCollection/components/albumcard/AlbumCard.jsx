@@ -19,15 +19,6 @@ const AlbumCard = ({
           title: title,
           artist: artist,
           cover: cover,
-          lang: '',
-        })
-      }
-      onLongPress={() =>
-        navigation.navigate('Album', {
-          title: title,
-          artist: artist,
-          cover: cover,
-          lang: 'es',
         })
       }>
       <View style={styles.coverContainer}>

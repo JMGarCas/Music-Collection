@@ -36,18 +36,6 @@ const SearchBar = props => {
               title: album.title,
               artist: album.artist,
               cover: album.cover,
-              lang: '',
-            });
-            setAlbum(
-              props.albums[Math.floor(Math.random() * props.albums.length)],
-            );
-          }}
-          onLongPress={() => {
-            navigation.navigate('Album', {
-              title: album.title,
-              artist: album.artist,
-              cover: album.cover,
-              lang: 'es',
             });
             setAlbum(
               props.albums[Math.floor(Math.random() * props.albums.length)],
