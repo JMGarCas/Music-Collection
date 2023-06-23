@@ -10,6 +10,7 @@ function AlbumScreen({route}) {
   const [buttonSelected, setButtonSelected] = useState('wiki');
   const [dataAlbum, setDataAlbum] = useState('');
   const [dataArtist, setDataArtist] = useState('');
+  const [scrollValue, setScrollValue] = useState(0);
   const [language, setLanguage] = useState('');
 
   const fetchAlbumData = async () => {
@@ -279,7 +280,9 @@ function AlbumScreen({route}) {
 
   return (
     <View style={styles.mainView}>
-      <ScrollView overScrollMode="never" showsVerticalScrollIndicator={false}>
+      <ScrollView overScrollMode="never" showsVerticalScrollIndicator={false} onScroll={(event) => {
+        setScrollValue(event.nativeEvent.contentOffset.y)
+      }}>
         <View style={styles.coverContainer}>
           <Image
             source={{
@@ -298,7 +301,8 @@ function AlbumScreen({route}) {
           ? artistSelected()
           : tracksSelected()}
       </ScrollView>
-      <View style={{flexDirection: 'row'}}>
+
+      {scrollValue <= 0 ? (<View style={{flexDirection: 'row'}}>
         {language == '' ? (
           <>
             <TouchableOpacity style={styles.languageTextContainerSelected}>
@@ -336,7 +340,7 @@ function AlbumScreen({route}) {
             </TouchableOpacity>
           </>
         )}
-      </View>
+      </View>): null}
     </View>
   );
 }
