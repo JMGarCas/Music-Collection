@@ -31,6 +31,13 @@ To use Music Collection, follow these steps:
 
 - Clone the repository: `git clone https://github.com/JMGarCas/Music-Collection.git`
 
+- You need a [Last.fm API](https://www.last.fm/api) key to use this application. Create inside `MusicCollection` folder a JavaScript file called `apikeys.js` and write the following code there:
+  ```
+  const LASTFM_API_KEY="<YOUR API KEY>";
+
+  export default LASTFM_API_KEY;
+  ```
+  
 - Install the required dependencies: `npm install`
 
 - Build and run the application on your preferred mobile device or emulator: `npm run android` or `npm run ios`.
