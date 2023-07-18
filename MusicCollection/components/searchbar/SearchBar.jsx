@@ -1,5 +1,5 @@
 import {View, TouchableOpacity, TextInput, Image} from 'react-native';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {COLORS} from '../../styles/styles';
 import styles from './searchbar.style';
@@ -9,6 +9,11 @@ const SearchBar = props => {
   const [album, setAlbum] = useState(
     props.albums[Math.floor(Math.random() * props.albums.length)],
   );
+
+  useEffect(() => {
+    setAlbum(props.albums[Math.floor(Math.random() * props.albums.length)]);
+  }, [props.albums]);
+
   return (
     <View style={styles.elementsRow}>
       <View style={styles.searchContainer}>
