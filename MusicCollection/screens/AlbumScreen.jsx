@@ -1,4 +1,4 @@
-import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
+import {View, Text, Image, ScrollView, TouchableOpacity, useWindowDimensions} from 'react-native';
 import {useEffect, useState} from 'react';
 import styles from '../components/albumscreen/albumscreen.style';
 import axios from 'axios';
@@ -12,6 +12,8 @@ function AlbumScreen({route}) {
   const [dataArtist, setDataArtist] = useState('');
   const [scrollValue, setScrollValue] = useState(0);
   const [language, setLanguage] = useState('');
+
+  const {width} = useWindowDimensions();
 
   const fetchAlbumData = async () => {
     if (language == 'es') {
@@ -112,6 +114,7 @@ function AlbumScreen({route}) {
           </View>
           <View style={{marginHorizontal: 32, marginVertical: 22}}>
             <RenderHTML
+              contentWidth={width}
               source={{
                 html: `
                 <p style="color:white; textAlign:justify; letter-spacing: 1px; font-size: 16px; line-height: 30px;">${textFormatted}</p>
@@ -183,6 +186,7 @@ function AlbumScreen({route}) {
           </View>
           <View style={{marginHorizontal: 32, marginVertical: 22}}>
             <RenderHTML
+              contentWidth={width}
               source={{
                 html: `
                 <p style="color:white; textAlign:justify; letter-spacing: 1px; font-size: 16px; line-height: 30px;">${textFormatted}</p>
@@ -246,15 +250,13 @@ function AlbumScreen({route}) {
           </TouchableOpacity>
         </View>
         <View style={{marginVertical: 32}}>
-          {dataAlbum.tracks.track.map((track, index) => {
-            return (
+          {dataAlbum.tracks.track.map((track, index) => (
               <TrackCard
+                key={track.name}
                 index={index + 1}
                 track={track.name}
-                artist={route.params.artist}
               />
-            );
-          })}
+          ))}
         </View>
       </View>
     );

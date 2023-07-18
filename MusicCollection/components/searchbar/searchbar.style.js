@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     width: 42,
     height: 40,
   },
-  raondomImage:{
+  randomImage:{
     width: "70%",
     height: "70%",
   }

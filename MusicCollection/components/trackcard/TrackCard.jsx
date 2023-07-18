@@ -2,7 +2,7 @@ import {View, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styles from './trackcard.style';
 
-const TrackCard = ({index, track, artist}) => {
+const TrackCard = ({index, track}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>

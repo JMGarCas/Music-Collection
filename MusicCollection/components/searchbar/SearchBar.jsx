@@ -43,14 +43,14 @@ const SearchBar = props => {
           }}>
           <Image
             source={require('../../styles/dices.png')}
-            style={styles.raondomImage}
+            style={styles.randomImage}
           />
         </TouchableOpacity>
       ) : (
         <TouchableOpacity style={styles.randomButtonContainer}>
           <Image
             source={require('../../styles/dices.png')}
-            style={styles.raondomImage}
+            style={styles.randomImage}
           />
         </TouchableOpacity>
       )}
