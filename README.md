@@ -10,11 +10,11 @@ Music Collection is a mobile application that allows users to store and manage t
 
 </table>
 
-## Index
+## Table of Contents
 
 - [Features](#features)
 - [Installation](#installation)
-- [How to Use](#how-to-use)
+- [Usage](#usage)
 - [Technologies Used](#technologies-used)
 
 ## Features
@@ -51,7 +51,7 @@ To use Music Collection, follow these steps:
 
 **Note**: The above installation steps assume that you have Node.js, npm, and the necessary development tools set up on your machine.
 
-## How to Use
+## Usage
 
 - The first time you open the application, you will be greeted with the following screen:
 
