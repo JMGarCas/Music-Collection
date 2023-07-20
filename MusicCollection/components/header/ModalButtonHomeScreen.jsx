@@ -14,7 +14,7 @@ import {useRealm} from '../../schemas/Album';
 import LASTFM_API_KEY from '../../apikeys';
 
 const ModalButtonHomeScreen = () => {
-  const [dataAlbum, setDataAlbum] = useState([]);
+  const [dataAlbum, setDataAlbum] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [artistName, setArtistName] = useState('');
   const [albumName, setAlbumName] = useState('');
@@ -23,63 +23,106 @@ const ModalButtonHomeScreen = () => {
 
   useEffect(() => {
     if (dataAlbum.length != 0) {
-      realm.write(() => {
-        realm.create('Album', {
-          title: dataAlbum.name,
-          artist: dataAlbum.artist,
-          cover: dataAlbum.image[3]['#text'],
+      if (dataAlbum.image[3]['#text'] == '') {
+        realm.write(() => {
+          realm.create('Album', {
+            title: dataAlbum.name,
+            artist: dataAlbum.artist,
+            cover:
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Forbidden_Symbol_Transparent.svg/2048px-Forbidden_Symbol_Transparent.svg.png',
+          });
         });
-      });
+      } else {
+        realm.write(() => {
+          realm.create('Album', {
+            title: dataAlbum.name,
+            artist: dataAlbum.artist,
+            cover: dataAlbum.image[3]['#text'],
+          });
+        });
+      }
     }
   }, [dataAlbum]);
 
   const fetchAlbumData = async () => {
-    const response = await axios.get(
-      `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${LASTFM_API_KEY}&artist=${encodeURIComponent(
-        artistName,
-      )}&album=${encodeURIComponent(albumName)}&format=json`,
-    );
-
-    setDataAlbum(response.data.album);
+    await axios
+      .get(
+        `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${LASTFM_API_KEY}&artist=${encodeURIComponent(
+          artistName,
+        )}&album=${encodeURIComponent(albumName)}&format=json`,
+      )
+      .then(albumResponse => setDataAlbum(albumResponse.data.album))
+      .catch(error => console.log(error));
   };
 
   const coverNotPresent = () => {
-    return (
-      <TouchableOpacity
-        style={styles.actionBtn}
-        onPress={() => {
-          fetchAlbumData();
-          setArtistName('');
-          setAlbumName('');
-          setCover('');
-          setModalOpen(false);
-        }}>
-        <Text style={styles.actionBtnText}>Add Album</Text>
-      </TouchableOpacity>
-    );
+    if (albumName != '' && artistName != '') {
+      return (
+        <TouchableOpacity
+          style={styles.actionBtn}
+          onPress={() => {
+            fetchAlbumData();
+            setArtistName('');
+            setAlbumName('');
+            setCover('');
+            setModalOpen(false);
+          }}>
+          <Text style={styles.actionBtnText}>Add Album</Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <TouchableOpacity
+          style={styles.actionBtn}
+          onPress={() => {
+            setArtistName('');
+            setAlbumName('');
+            setCover('');
+            setModalOpen(false);
+          }}>
+          <Text style={styles.actionBtnText}>Add Album</Text>
+        </TouchableOpacity>
+      );
+    }
   };
 
   const coverPresent = () => {
-    return (
-      <TouchableOpacity
-        style={styles.actionBtn}
-        onPress={() => {
-          realm.write(() => {
-            realm.create('Album', {
-              title: albumName,
-              artist: artistName,
-              cover: cover,
+    if (albumName != '' && artistName != '') {
+      return (
+        <TouchableOpacity
+          style={styles.actionBtn}
+          onPress={() => {
+            realm.write(() => {
+              realm.create('Album', {
+                title: albumName,
+                artist: artistName,
+                cover: cover,
+              });
             });
-          });
-          setArtistName('');
-          setAlbumName('');
-          setCover('');
-          setModalOpen(false);
-        }}>
-        <Text style={styles.actionBtnText}>Add Album</Text>
-      </TouchableOpacity>
-    );
+            setArtistName('');
+            setAlbumName('');
+            setCover('');
+            setModalOpen(false);
+          }}>
+          <Text style={styles.actionBtnText}>Add Album</Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <TouchableOpacity
+          style={styles.actionBtn}
+          onPress={() => {
+            setArtistName('');
+            setAlbumName('');
+            setCover('');
+            setModalOpen(false);
+          }}>
+          <Text style={styles.actionBtnText}>Add Album</Text>
+        </TouchableOpacity>
+      );
+    }
   };
+
   return (
     <View>
       <TouchableOpacity

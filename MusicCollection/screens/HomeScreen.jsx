@@ -43,7 +43,7 @@ function HomeScreen({arraySelected, width}) {
         .sorted([
           ['artist', false],
           ['title', false],
-        ]),
+        ]),[searchBarQuery],
     );
   }
 

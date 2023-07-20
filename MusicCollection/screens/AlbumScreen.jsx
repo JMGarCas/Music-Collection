@@ -25,7 +25,7 @@ function AlbumScreen({route}) {
             route.params.title,
           )}&lang=es&format=json`,
         )
-        .then(albumResponse => setDataAlbum(albumResponse.data.album));
+        .then(albumResponse => setDataAlbum(albumResponse.data.album)).catch((error) => console.log(error));
     } else {
       await axios
         .get(
@@ -33,7 +33,7 @@ function AlbumScreen({route}) {
             route.params.artist,
           )}&album=${encodeURIComponent(route.params.title)}&format=json`,
         )
-        .then(albumResponse => setDataAlbum(albumResponse.data.album));
+        .then(albumResponse => setDataAlbum(albumResponse.data.album)).catch((error) => console.log(error));
     }
   };
 
@@ -45,7 +45,7 @@ function AlbumScreen({route}) {
             route.params.artist,
           )}&api_key=88dde75fdbdd534902a5d406e748c527&lang=es&format=json`,
         )
-        .then(artistResponse => setDataArtist(artistResponse));
+        .then(artistResponse => setDataArtist(artistResponse)).catch((error) => console.log(error));
     } else {
       await axios
         .get(
@@ -53,7 +53,7 @@ function AlbumScreen({route}) {
             route.params.artist,
           )}&api_key=88dde75fdbdd534902a5d406e748c527&format=json`,
         )
-        .then(artistResponse => setDataArtist(artistResponse));
+        .then(artistResponse => setDataArtist(artistResponse)).catch((error) => console.log(error));
     }
   };
 
@@ -117,7 +117,7 @@ function AlbumScreen({route}) {
               contentWidth={width}
               source={{
                 html: `
-                <p style="color:white; textAlign:justify; letter-spacing: 1px; font-size: 16px; line-height: 30px;">${textFormatted}</p>
+                <p style="color:white; letter-spacing: 1px; font-size: 16px; line-height: 30px;">${textFormatted}</p>
                 `,
               }}
             />
@@ -189,7 +189,7 @@ function AlbumScreen({route}) {
               contentWidth={width}
               source={{
                 html: `
-                <p style="color:white; textAlign:justify; letter-spacing: 1px; font-size: 16px; line-height: 30px;">${textFormatted}</p>
+                <p style="color:white; letter-spacing: 1px; font-size: 16px; line-height: 30px;">${textFormatted}</p>
                 `,
               }}
             />
